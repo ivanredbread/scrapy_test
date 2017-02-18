@@ -2,12 +2,14 @@
 import scrapy
 from scrapy.loader import ItemLoader
 from myproject.items import MyprojectItem
+
 class BangumiSpider(scrapy.Spider):
     name = "bangumi"
     allowed_domains = ["bangumi.tv"]
     start_urls = (
-        'http://bangumi.tv/anime/browser?sort=rank',
+    'http://bangumi.tv/anime/browser?sort=rank',
     )
+        
 #    custom_settings
 #    crawler
 #    settings
@@ -16,27 +18,41 @@ class BangumiSpider(scrapy.Spider):
 # 
 #==============================================================================
 #    def from_crawler(crawler, *args, **kwargs):
-#    def start_requests():
+#    def start_requests(self):
+#        url_head = 'http://bangumi.tv/anime/browser?sort=rank&page='
+#        for line in range(21):
+#            self.start_urls.append(url_head + str(line+1))
 #    make_requests_from_url(url):
-    
+#------------------------------------------------------------------------------   
     def parse(self, response):
-        l = ItemLoader(item=MyprojectItem(), response=response)
-        l.add_xpath('name','//li/div[@class="inner"]/h3/a/text()')
-        l.add_xpath('link','//li/div[@class="inner"]/h3/a/@href')
-        l.add_xpath('score','//li/div[@class="inner"]/p[@class="rateInfo"]/small/text()')
-        l.load_item()
-        return {
-                'name':l.item['name'],
-                'link':l.item['link'],
-                'score':l.item['score'],
-        }
-        
+#------------------------------the first method--------------------------------
+#        l = ItemLoader(item=MyprojectItem(), response=response)
+#        l.add_xpath('name','//li/div[@class="inner"]/h3/a/text()')
+#        l.add_xpath('link','//li/div[@class="inner"]/h3/a/@href')
+#        l.add_xpath('score','//li/div[@class="inner"]/p[@class="rateInfo"]/small/text()')
+#        l.load_item()
+#        return {
+#                'name':l.item['name'],
+#                'link':l.item['link'],
+#                'score':l.item['score'],
+#        }
+#------------------------------the second method-------------------------------     
+#        for sel in response.xpath('//li/div[@class="inner"]'):
 #            yield {
 #                    'name':sel.xpath('h3/a/text()').extract(),
 #                    'link':sel.xpath('h3/a/@href').extract(),
 #                    'score':sel.xpath('p[@class="rateInfo"]/small/text()').extract(),
 #            }
-
+#------------------------------the third method--------------------------------
+        for sel in response.xpath('//li/div[@class="inner"]'):
+            item = MyprojectItem()
+            item['name']  = sel.xpath('h3/a/text()').extract()
+            item['link']  = sel.xpath('h3/a/@href').extract()
+            item['score'] = sel.xpath('p[@class="rateInfo"]/small/text()').extract()
+            yield item
+#------------------------------------------------------------------------------
+#    def parse_item(self, response):
+        
         
 #        filename = response.url.split('/')[-2]
 #        with open(filename + '.html','wb') as f:
