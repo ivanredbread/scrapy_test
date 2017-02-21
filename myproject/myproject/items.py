@@ -13,4 +13,5 @@ class MyprojectItem(scrapy.Item):
     name  = scrapy.Field()
     link  = scrapy.Field()
     score = scrapy.Field()
-#    num   = scrapy.Field()
+    num   = scrapy.Field()
+    info  = scrapy.Field()
