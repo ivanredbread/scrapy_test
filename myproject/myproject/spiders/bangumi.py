@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from scrapy.loader import ItemLoader
+#from scrapy.loader import ItemLoader
 from myproject.items import MyprojectItem
 
 class BangumiSpider(scrapy.Spider):
