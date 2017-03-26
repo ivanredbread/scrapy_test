@@ -55,7 +55,7 @@ class BangumiSpider(scrapy.Spider):
 
         next_page = response.xpath('//div[@class="page_inner"]/strong/text()')
         next_page = str(int(next_page[0].extract())+1)
-        if int(next_page) ==80:
+        if int(next_page) ==167:
             next_page = False
         if next_page:
           url = response.urljoin('http://bangumi.tv/anime/browser?sort=rank&page=' + next_page)
