@@ -17,8 +17,9 @@ info   = []
 
 for i in range(len(data)):
     value  = float(data[i]['score'][0])**(np.e/2)/float(re.findall(r"\d+\.?\d*",data[i]['num'][0])[0])*1000
+    number = float(re.findall(r"\d+\.?\d*",data[i]['num'][0])[0])
 #    if float(data[i]['score'][0]) >= 7.0:
-    if value >= 100.0 and float(data[i]['score'][0]) >= 7.0:
+    if  float(data[i]['score'][0]) <= 6.0 and number >= 1000.0:
         link.append(data[i]['link'][0])
         name.append(data[i]['name'][0])
         num.append(data[i]['num'][0])
