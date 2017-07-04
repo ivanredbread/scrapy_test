@@ -4,9 +4,8 @@ import pandas as pd
 import numpy as np
 
 
-f = open("bangumi.json", encoding='utf-8')  #设置以utf-8解码模式读取文件，encoding参数必须设置，否则默认以gbk模式读取文件，当文件中包含中文时，会报错
-data = json.load(f)
-f.close()
+with open("bangumi.json", encoding='utf-8') as f:  #设置以utf-8解码模式读取文件，encoding参数必须设置，否则默认以gbk模式读取文件，当文件中包含中文时，会报错
+    data = json.load(f)
 
 link   = []
 name   = []
