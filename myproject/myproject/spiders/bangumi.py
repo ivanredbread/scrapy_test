@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 #from scrapy.loader import ItemLoader
-from myproject.items import MyprojectItem
+from myproject.items import BangumiItem
 
 class BangumiSpider(scrapy.Spider):
     name = "bangumi"
@@ -45,7 +45,7 @@ class BangumiSpider(scrapy.Spider):
 #            }
 #------------------------------the third method--------------------------------
         for sel in response.xpath('//li/div[@class="inner"]'):
-            item = MyprojectItem()
+            item = BangumiItem()
             item['name']  = sel.xpath('h3/a/text()').extract()
             item['link']  = sel.xpath('h3/a/@href').extract()
             item['score'] = sel.xpath('p[@class="rateInfo"]/small/text()').extract()
@@ -58,8 +58,8 @@ class BangumiSpider(scrapy.Spider):
         if int(next_page) ==167:
             next_page = False
         if next_page:
-          url = response.urljoin('http://bangumi.tv/anime/browser?sort=rank&page=' + next_page)
-          yield scrapy.Request(url, self.parse)
+            url = response.urljoin('http://bangumi.tv/anime/browser?sort=rank&page=' + next_page)
+            yield scrapy.Request(url, self.parse)
 #------------------------------------------------------------------------------
 #    def parse_item(self, response):
 
