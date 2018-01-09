@@ -28,4 +28,9 @@ class BilibiliItem(scrapy.Item):
     coins = scrapy.Field()
     favo  = scrapy.Field()
     
+class AdsItem(scrapy.Item):
+    link  = scrapy.Field()
+
+    
+    
     
